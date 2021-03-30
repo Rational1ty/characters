@@ -19,6 +19,7 @@ public class Characters {
 		final int ROWS = 50;
 
 		Font f = new Font("Arial", Font.BOLD, 60);
+		
 		var reflectY = AffineTransform.getTranslateInstance(0, 45);
 		var frc = new FontRenderContext(null, true, true);
 		var gv = f.createGlyphVector(frc, args[0]);
