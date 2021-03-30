@@ -9,7 +9,7 @@ import java.awt.geom.AffineTransform;
 public class Characters {
 	public static void main(String[] args) {
 		if (args.length == 0) {
-			err.println("ERR: Expected 1 argument but got 0");
+			err.println("ERR: Expected 1 argument but got 0\n");
 			err.println("    java Characters");
 			err.println("                   ^^");
 			return;
