@@ -1,17 +1,21 @@
+import static java.lang.System.err;
 import static java.lang.System.out;
 
 import java.awt.Font;
+import java.awt.Point;
 import java.awt.font.FontRenderContext;
 import java.awt.geom.AffineTransform;
 
 public class Characters {
 	public static void main(String[] args) {
 		if (args.length == 0) {
-			out.println("ERR: Expected 1 argument but got 0");
-			out.println("    java Characters");
-			out.println("                   ^^");
+			err.println("ERR: Expected 1 argument but got 0");
+			err.println("    java Characters");
+			err.println("                   ^^");
 			return;
 		}
+
+		final int PAD = 5;
 
 		args[0] = args[0].substring(0, 1);
 
@@ -21,19 +25,19 @@ public class Characters {
 		var frc = new FontRenderContext(null, true, true);
 		var gv = f.createGlyphVector(frc, args[0]);
 		var outline = reflectY.createTransformedShape(gv.getGlyphOutline(0));
-		var bounds = outline.getBounds2D();
+		var bounds = outline.getBounds();
 
+		var min = new Point(bounds.x, bounds.y);
+		var max = new Point(bounds.x + bounds.width, bounds.y + bounds.height);
+		min.translate(-PAD, -PAD);
+		max.translate(PAD, PAD);
 
-		final int COLS = 80;
-		final int ROWS = 50;
-		// final int COLS = (int) bounds.getWidth() + 5;
-		// final int ROWS = (int) bounds.getHeight() + 10;
-
-		for (int y = 0; y < ROWS; y += 2) {
-			for (int x = 0; x < COLS; x++) {
+		for (int y = min.y; y < max.y; y += 2) {
+			for (int x = min.x; x < max.x; x++) {
 				out.print(outline.contains(x, y) ? args[0] : " ");
 			}
 			out.println();
 		}
+		out.println();
 	}
 }
