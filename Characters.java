@@ -15,15 +15,19 @@ public class Characters {
 
 		args[0] = args[0].substring(0, 1);
 
-		final int COLS = 80;
-		final int ROWS = 50;
-
 		Font f = new Font("Arial", Font.BOLD, 60);
 		
 		var reflectY = AffineTransform.getTranslateInstance(0, 45);
 		var frc = new FontRenderContext(null, true, true);
 		var gv = f.createGlyphVector(frc, args[0]);
 		var outline = reflectY.createTransformedShape(gv.getGlyphOutline(0));
+		var bounds = outline.getBounds2D();
+
+
+		final int COLS = 80;
+		final int ROWS = 50;
+		// final int COLS = (int) bounds.getWidth() + 5;
+		// final int ROWS = (int) bounds.getHeight() + 10;
 
 		for (int y = 0; y < ROWS; y += 2) {
 			for (int x = 0; x < COLS; x++) {
