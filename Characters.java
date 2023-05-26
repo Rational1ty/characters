@@ -10,6 +10,8 @@ import java.awt.geom.AffineTransform;
 import java.io.PrintStream;
 
 public class Characters {
+	static final int PAD = 5;
+
 	public static void main(String[] args) {
 		if (args.length == 0) {
 			displayUsage(System.err);
@@ -74,18 +76,16 @@ public class Characters {
 
 		Font f = new Font(fontName, fontStyle, fontSize);
 		
-		// reflect character glyph about y-axis and get outline
+		// get character outline and bounding box
 		Shape outline = getCharacterOutline(f, ch);
 		Rectangle bounds = outline.getBounds();
 
-		// top left and bottom right points of bounding box
+		// apply padding
+		bounds.grow(PAD, PAD);
+
+		// get top left and bottom right points of bounding box
 		var min = new Point(bounds.x, bounds.y);
 		var max = new Point(bounds.x + bounds.width, bounds.y + bounds.height);
-
-		// apply padding
-		final int PAD = 5;
-		min.translate(-PAD, -PAD);
-		max.translate(PAD, PAD);
 
 		// display character(s)
 		for (int y = min.y; y < max.y; y += 2) {
